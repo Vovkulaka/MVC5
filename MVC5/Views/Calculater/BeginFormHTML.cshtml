@@ -1,0 +1,184 @@
+﻿@{
+    ViewBag.Title = "Calculator whith AJAX.BeginForm";
+    //var ajaxOptions = new AjaxOptions
+    //{
+    //    UpdateTargetId = "calculator_history", // розмітку яку верне метод дії OrdersData помістимо у елемент з id calculator_history який знаходиться нижче.
+    //    Url = Url.Action("asd"), // на сервері звертатимемось до методу дії SendToDataBase | AddDeleteCalculate
+    //    LoadingElementId = "loadingIndicator"
+
+    //    // Получение IP-адреса пользователя: HttpContext.Request.UserHostAddress        <--
+    //    // "Работа с куки" - https://metanit.com/sharp/mvc/3.5.php | https://metanit.com/sharp/mvc5/3.7.php
+    //};
+}
+
+<div class="row calculator">
+    @*@using (Html.BeginForm("AddDeleteCalculate2", "Home"))*@
+    @*@using (ajax.BeginForm("AddDeleteCalculate2", ajaxOptions)) - https://metanit.com/sharp/mvc5/10.3.php*@
+    @*@using (ajax.BeginForm(ajaxOptions))*@
+    @using (Html.BeginForm())
+    {
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div id="frame">
+                    <div id="calculator_history">
+                        @*#222 - також див. HomeController.cs. ВІДМОВИВСЯ ВІД ТАКОГО ПІДХОДУ ОСКІЛЬКИ НЕ ЗНАЙШОВ СПОСОБУ ПЕРЕДАЧІ ВВЕДЕНОЇ ФУНКЦІЇ В #calculator_display ДО КОНТРОЛЕРУ. *@
+                        @* @if (ViewBag.Result != null) // провіряємо, якщо у ViewBag.Result нічого немає то ми нічого не робимо. Якщо ж там щось є (!= null) то…
+                            {
+                                <p>@ViewBag.Result</p>//…виводимо результат роботи нашої форми.
+                            }*@
+
+                        <img id="loadingIndicator" style="display:none;" src="@Url.Content("~/Content/fancybox_loading.gif")" /> @* це картинка що відображатиметься до отримання результату від сервера при використанні Ajax.BeginForm(ajaxOptions) та вказвівці у ajaxOptions властивості LoadingElementId! *@
+
+                        @Html.Action("_ShowStoryColculate")  @* ХЕЛПЕР ЯКИЙ ВИКЛИКАЄ ДОЧІРНІЙ МЕТОД ДІЇ ПОТОЧНОГО КОНТРОЛЕРА *@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 display_elements">
+                @Html.TextBox("displayCalculator", null, new { @class = "form-control display_elements", @id = "calculator_display" }) @* displayCalculator - це ім'я TextBox-у! *@
+            </div>
+        </div>
+
+        <div class="row display_elements">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <button type="button" class="text-center  display_elements display_button_clear" value="Clear">@Resources.Resource.ClearCalcHistory</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="row">
+                    <p class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_clear">
+                            C
+                        </button>
+                    </p>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="row">
+                    <p class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button calculator_backspace">
+                            @*<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> - прибрав Bootstrap оскільки за туторіалом його файли повинні знаходитись або у папці fonts або у папці за замовчуванням, а ти їх перемістив*@
+                            <span>&#8592;</span> @*https://www.toptal.com/designers/htmlarrows/arrows/*@
+                            @*<span class="oi oi-arrow-left"></span>*@
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="row">
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button" value="(">(</button>
+                    </p>
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button" value=")">)</button>
+                    </p>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="row">
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_power">
+                            <span>X&#178;</span> @*https://www.toptal.com/designers/htmlarrows/math/superscript-two/*@
+                        </button>
+                    </p>
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button" value="&#247;">
+                            @*<span class="fas fa-divide"></span>  https://fontawesome.com/icons?d=gallery&c=mathematics*@
+                            <span>&#247;</span> @*https://www.toptal.com/designers/htmlarrows/math/division-sign/*@
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="row">
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button digital_button" value="7">7</button>
+                    </p>
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button digital_button" value="8">8</button>
+                    </p>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="row">
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button digital_button" value="9">9</button>
+                    </p>
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button" value="x">x</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="row">
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button digital_button" value="4">4</button>
+                    </p>
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button digital_button" value="5">5</button>
+                    </p>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="row">
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button digital_button" value="6">6</button>
+                    </p>
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button" value="-">-</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="row">
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button digital_button" value="1">1</button>
+                    </p>
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button digital_button" value="2">2</button>
+                    </p>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="row">
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button digital_button" value="3">3</button>
+                    </p>
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button" value="+">+</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="row">
+                    <p class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button digital_button" value="0">0</button>
+                    </p>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="row">
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_button_coma" value=",">,</button>
+                    </p>
+                    <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn btn-default text-center btn-lg btn-block calculator_key_equal" value="=">=</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

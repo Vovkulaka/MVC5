@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Reset/css")
+    @Styles.Render("~/Bootstrap/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/css")
+    <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="row">
+        <div class="col-xs-1 .col-sm-2 col-md-3 col-lg-4"></div>
+        <div class="col-xs-10 .col-sm-8 col-md-6 col-lg-4  center-block">
+            <div>
+                @using (Html.BeginForm("ChangeCulture", "Home")) // #333 об'єкт локалізації системи.
+                {
+                    <select name="lang">
+                        <option disabled selected>@Resources.Resource.ChooseLang</option>
+                        <option value="ua">Українська</option>
+                        <option value="en">English</option>
+                    </select>
+                    @Html.Hidden("returnUrl", this.Request.RawUrl) // ЦЕЙ РЯДОК ПЕРЕДАЄ В КОНТРОЛЕР РЯДКОВЕ ПОЛЕ З ІМЕНЕМ returnUrl, ЩО МІСТИТЬ В СОБІ ЗНАЧЕННЯ З ДРУГОГО АРГУМЕНТУ - "string calculate". ДИВ. КОНТРОЛЕР Home І ЙОГО МЕТОД ДІЇ ChangeCulture !!!       <--
+                    <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">
+                    <input type="submit" name="submit" value="ua">
+                    <input type="submit" name="submit" value="en">
+                }
+            </div>
+
+            @RenderBody()
+
+            @if (ViewBag.ShowButtonHome == null) // ДУЖЕ ЦІКАВИЙ СПОСІБ ВІДОБРАЖАТИ/ХОВАТИ ЕЛЕМЕТИ СТОРІНКИ _Layout В ЗАДЕЖНОСТІ ВІД ЗМІННИХ ViewBag !!!     <--
+            {
+                <button type="button" class="btn btn-default text-center btn-md btn-block display_elements" value="Clear" style="margin-top: 4em">@Html.ActionLink(@Resources.Resource.HOME, "Index", "Home", null, new { style = "color: red" })</button>
+            }
+        </div>
+        <div class="col-xs-1 .col-sm-2 col-md-3 col-lg-4"></div>
+    </div>
+
+    <div class="row" id="parent_popup">
+        <div class="center-block" id="popup">
+            <div id="windowError">
+                <div class="errorText">
+                    <p>@Resources.Resource.ErrorWhileRunning</p>
+                    <p>@Resources.Resource.ErrorMessage</p>
+                    <p id="exeptionMessage"></p>
+                    <p>@Resources.Resource.SendInfo</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <p>
+                            <button type="button" class="btn btn-default text-center btn-lg btn-block btn-success windowError" value="Yes">@Resources.Resource.Y</button>
+                        </p>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <p>
+                            <button type="button" class="btn btn-default text-center btn-lg btn-block btn-danger windowError" value="No">@Resources.Resource.N</button>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")@**@
+    @*@Scripts.Render("https://code.jquery.com/jquery-3.3.1.min.js")*@
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/CalculatorJquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

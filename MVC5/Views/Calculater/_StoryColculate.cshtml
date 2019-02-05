@@ -1,0 +1,15 @@
+﻿@model IEnumerable<MVC5.Models.Calculate>
+
+<table border="1" id="table_calculator_history">
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @* @Html.ActionLink(@item.CalculateString, null, new { @class = "SelectCalculate" }) @*https://stackoverflow.com/questions/2856071/how-to-call-javascript-function-in-html-actionlink-in-asp-net-mvc*@
+                <a class="SelectCalculate"> @item.CalculateString</a>
+            </td>
+        </tr>
+    }
+
+</table>

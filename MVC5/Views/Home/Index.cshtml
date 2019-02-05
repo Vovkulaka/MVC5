@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = @Resources.Resource.HomePage; // Витягнення значення з файлу локалізації !!!    <---
+    ViewBag.ShowButtonHome = false;
+    //Layout = null;
+}
+
+<head>
+    @Styles.Render("~/Reset/css")
+    @Styles.Render("~/Bootstrap/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/css")
+</head>
+<div class="row center-block text-center">
+    <br /><br /><br /><br />
+    <span>@Html.ActionLink(@Resources.Resource.CalculateHttpBeginForm, "BeginFormHTML", "Calculater", null, new { @class = "idexLink" })</span> <br /><br /><br />
+    <span>@Html.ActionLink(@Resources.Resource.CalculateAjaxBeginForm, "BeginFormAJAX", "Calculater", null, new { @class = "idexLink" })</span> <br /><br /><br />
+    <span>@Html.ActionLink(@Resources.Resource.ApiProject, "BeginFormXXX", "Calculater", null, new { @class = "idexLink" })</span> <br /><br /><br />
+</div>

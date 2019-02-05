@@ -1,0 +1,218 @@
+﻿body {
+    padding-top: 3em;
+    padding-bottom: 2em;
+}
+
+.calculator {
+    z-index: 99;
+}
+
+/*/////////////////////////////////////////////////////////////////////////////////////////////*/
+/*   КОРИГУВАННЯ ВЛАСТИВОСТЕЙ БРАУЗЕРА   */
+/*a.active.focus,
+a.active:focus,
+a.focus,
+a:active.focus,
+a:active:focus,
+a:focus,*/
+button.active.focus,
+button.active:focus,
+button.focus,
+button:active.focus,
+button:active:focus,
+button:focus,
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus {
+    outline: 0 !important;
+    outline-color: transparent !important;
+    outline-width: 0 !important;
+    outline-style: none !important;
+    box-shadow: 0 0 0 0 rgba(0,123,255,0) !important;
+    background-color: #ccc !important;
+    border-color: #787878;
+}
+
+/*   КОРИГУВАННЯ ВЛАСТИВОСТЕЙ Bootstrap-a   */
+.btn {
+    border-color: #787878 !important;
+    background-color: #D8D8D8;
+}
+
+#calculator_history, #calculator_history:active, #calculator_history:focus {
+    display: block;
+    height: 10em;
+    width: 100%;
+    padding: .6em .8em;
+    font-size: 1.2em;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    resize: none; /*скриває кутик для зміни розміру поля*/
+    outline: none !important;
+    overflow-x: auto;
+    overflow-y: auto;
+    /*pointer-events: none; /*блокує введення тексту у textarea - точніше можливість курсору працювати з об'єктом */
+    margin: .5em;
+}
+
+#frame {
+    border: .05em solid rgb(146, 146, 146);
+    border-radius: .3em;
+    -webkit-box-shadow: inset 0 0.1em 0.1em rgba(0, 0, 0, .075);
+    box-shadow: inset 0 0.1em 0.1em rgba(0, 0, 0, .075);
+    padding-right: 1em;
+    margin-bottom: 2em;
+}
+
+#calculator_display { /*, #calculator_display:active*/
+    height: 2.5em;
+    font-size: 1.4em;
+    border-color: rgb(102,175,233);
+}
+
+.display_elements {
+    margin-bottom: 1em;
+}
+
+.SelectCalculate, .SelectCalculate:link, .SelectCalculate:visited, .SelectCalculate:hover, .SelectCalculate:active:hover, .SelectCalculate:active {
+    color: #555;
+    text-decoration: none;
+    /*pointer-events: none;*/
+    cursor: default;
+}
+
+.digital_button {
+    background-color: white;
+    border-color: #787878 !important;
+}
+
+/**
+ * Designmoo - Special Edition
+ 
+.dsgnmoo {
+    background: #f97779;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#f97779), to(#ce2424));
+    background: -moz-linear-gradient(#f97779, #ce2424);
+    background: linear-gradient(#f97779, #ce2424);
+    border: solid 1px #be2424;
+    border-bottom: solid 3px #bd2524;
+    box-shadow: inset 0 0 0 1px #e67e7b;
+    color: #fff;
+    text-shadow: 0 1px 0 #bd2524;
+}
+
+    .dsgnmoo:hover {
+        background: #ce2424;
+        background: -webkit-gradient(linear, 0 0, 0 bottom, from(#ce2424), to(#f97779));
+        background: -moz-linear-gradient(#ce2424, #f97779);
+        background: linear-gradient(#ce2424, #f97779);
+        border: solid 1px #be2424;
+        border-bottom: solid 3px #bd2524;
+        box-shadow: inset 0 0 0 1px #e67e7b;
+    }
+
+    .dsgnmoo:active {
+        background: #ce2424;
+        background: -webkit-gradient(linear, 0 0, 0 bottom, from(#ce2424), to(#f97779));
+        background: -moz-linear-gradient(#ce2424, #f97779);
+        background: linear-gradient(#ce2424, #f97779);
+        border: solid 1px #be2424;
+        box-shadow: inset 0 10px 15px 0 #bd2524;
+    }*/
+
+.display_button_clear {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 2.5em !important;
+    /*line-height: 2.5em;*/
+    /*vertical-align: middle;*/
+    font-size: 1.4em;
+    /*text-align: center;*/
+    text-decoration: none;
+    text-shadow: 0 -1px 1px #777;
+    color: #fff;
+    outline: none;
+    border: 2px solid #F64C2B !important;
+    border-radius: .3em;
+    /*box-shadow: 0 0 0 60px rgba(0,0,0,0) inset, .1em .1em .2em #800;*/
+    background: linear-gradient(#FB9575, #F45A38 48%, #EA1502 52%, #F02F17);
+}
+
+    .display_button_clear:hover {
+        color: #fff;
+        box-shadow: none;
+        border: 2px solid #F64C2B !important;
+    }
+
+    .display_button_clear:focus {
+        color: #fff;
+        box-shadow: none;
+        border: 2px solid #F64C2B !important;
+    }
+
+    .display_button_clear:active {
+        border: 2px solid #F64C2B !important;
+        top: .1em;
+        left: .1em;
+        box-shadow: 0 0 0 60px rgba(0,0,0,.05) inset;
+        color: #fff;
+        box-shadow: none;
+    }
+
+/* windowError */
+#parent_popup {
+    background: #000;
+    height: 100%;
+    opacity: 0.85;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    display: none; /*inline*/
+}
+
+#popup {
+    width: 50%;
+    height: 50%;
+    position: fixed;
+    top: 25%;
+    left: 25%;
+}
+
+#windowError {
+    border: 2px solid red;
+    border-radius: 1.3em;
+    background-color: #560000;
+    margin: 0 auto;
+    padding: 3em;
+}
+
+div.errorText > p {
+    color: red; /*white;*/
+    font-size: 2em !important;
+}
+
+.btn-success, .btn-danger {
+    margin-top: 2em;
+    background-color: rgb(93, 93, 93);
+}
+
+
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.idexLink {
+    color: blue;
+    font-weight: bold;
+    font-size: 1.5em;
+    font-family: Arial;
+    margin-top: 5em !important; /* НЕ ПРАЦЮЄ! */
+}
+
+span a {
+    margin-top: 4em !important; /* НЕ ПРАЦЮЄ! */
+}
